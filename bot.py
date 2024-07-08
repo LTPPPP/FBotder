@@ -92,7 +92,7 @@ def save_to_file(question: str, answer: str, filename: str = 'new_answers.txt'):
         f.write(f"Q: {question}\nA: {answer}\n\n")
 
 def google_search(query: str) -> str:
-    api_key = "9c14bc0b080dfed830e2022860b10ee851ca1a05"
+    api_key = "SERPAPI_API_KEY"
     if not api_key:
         raise ValueError("SERPAPI_API_KEY environment variable is not set.")
 
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     docsearch = configure_chroma(persist_directory, index_name, docs, embeddings)
 
     repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-    huggingfacehub_api_token = "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"
+    huggingfacehub_api_token = "API_HUGGING_FACE"
     llm = configure_llm(repo_id, huggingfacehub_api_token)
 
     rag_chain = create_rag_chain(docsearch, llm)
