@@ -1,0 +1,87 @@
+**Xác suất Thống kê**
+
+**Giới thiệu**
+
+Xác suất thống kê là một nhánh của toán học liên quan đến thu thập, phân tích và diễn giải dữ liệu ngẫu nhiên. Nó cho phép chúng ta đưa ra dự đoán và suy luận về các biến cố ngẫu nhiên dựa trên dữ liệu quan sát được.
+
+**Các Khái niệm Cơ bản**
+
+* **Sự kiện:** Một kết quả hoặc tập hợp các kết quả có thể xảy ra.
+* **Không gian mẫu:** Tập hợp tất cả các kết quả có thể xảy ra cho một thí nghiệm.
+* **Xác suất:** Một con số giữa 0 và 1 biểu thị khả năng xảy ra của một sự kiện.
+* **Phân phối xác suất:** Mô tả cách xác suất được phân bổ trên không gian mẫu.
+
+**Các Loại Phân Phối Xác Suất**
+
+* Phân phối nhị thức
+* Phân phối chuẩn
+* Phân phối Poisson
+* Phân phối t-Student
+* Phân phối F
+
+**Thử nghiệm Thống kê**
+
+Thử nghiệm thống kê được sử dụng để xác định xem một giả thuyết có được hỗ trợ bởi dữ liệu hay không. Các bước liên quan đến:
+
+* Thiết lập giả thuyết.
+* Thu thập dữ liệu.
+* Tính toán thống kê kiểm tra.
+* So sánh thống kê kiểm tra với giá trị tới hạn.
+* Đưa ra kết luận.
+
+**Các Ứng dụng của Xác Suất Thống Kê**
+
+* Khoa học xã hội: Khảo sát, nghiên cứu thị trường
+* Y học: Thử nghiệm lâm sàng, chẩn đoán
+* Tài chính: Đánh giá rủi ro, lập kế hoạch tài chính
+* Công nghệ thông tin: Phân tích dữ liệu, học máy
+* Tiếp thị: Chiến dịch tiếp thị được nhắm mục tiêu
+
+**Phần mềm Xác Suất Thống Kê**
+
+* SPSS
+* SAS
+* R
+* Python
+* Microsoft Excel
+
+**Kết luận**
+
+Xác suất thống kê là một công cụ mạnh mẽ cho phép chúng ta hiểu được dữ liệu ngẫu nhiên và đưa ra những dự đoán có thông tin. Nó đóng một vai trò quan trọng trong nhiều lĩnh vực, từ khoa học đến kinh doanh.
+
+**Công thức xác suất cơ bản**
+
+* Quy tắc cộng: P(A ∪ B) = P(A) + P(B) - P(A ∩ B)
+* Quy tắc nhân: P(A ∩ B) = P(A) * P(B|A)
+* Công thức Bayes: P(A|B) = (P(B|A) * P(A)) / P(B)
+
+**Công thức xác suất phân phối**
+
+* **Phân phối nhị thức:** P(X = k) = (n k) * p^k * (1-p)^(n-k)
+* **Phân phối Poisson:** P(X = k) = (e^-λ * λ^k) / k!
+* **Phân phối chuẩn:** P(X = x) = (1 / (σ√(2π))) * e^(-(x-μ)^2 / (2σ^2))
+
+**Công thức thống kê suy luận**
+
+* **Khoảng tin cậy:** μ ± z * σ/√n
+* **Kiểm định giả thuyết:**
+    * Kiểm định t-test một mẫu: t = (x̄ - μ) / (s / √n)
+    * Kiểm định t-test hai mẫu: t = (x̄1 - x̄2) / (s_p * √(1/n1 + 1/n2))
+* **Độ lệch chuẩn mẫu:** s = √[(Σ(xi - x̄)^2) / (n-1)]
+* **Hệ số tương quan:** r = (Σ((xi - x̄)(yi - ȳ)) / (√(Σ(xi - x̄)^2) * √(Σ(yi - ȳ)^2))
+
+**Thống kê**
+
+* **Dân số:** 97,3 triệu (2021)
+* **Diện tích:** 331.212 km²
+* **Mật độ dân số:** 293 người/km²
+* **GDP (danh nghĩa):** 362,617 tỷ USD (2021)
+* **GDP (PPP):** 957,497 tỷ USD (2021)
+* **GDP bình quân đầu người (danh nghĩa):** 3.739 USD (2021)
+* **GDP bình quân đầu người (PPP):** 9.845 USD (2021)
+* **Tăng trưởng GDP:** 2,58% (2021)
+* **Lạm phát:** 4,86% (2021)
+* **Tỷ lệ thất nghiệp:** 2,1% (2021)
+* **Kỳ vọng tuổi thọ:** 76,6 năm (2021)
+* **Tỷ lệ biết chữ:** 99% (2021)
+
