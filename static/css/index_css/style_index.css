@@ -6,6 +6,7 @@ body {
     background-color: #f0f0f0;
 }
 
+/* chat container */
 .chat-container {
     position: fixed;
     bottom: 20px;
@@ -103,4 +104,12 @@ body {
     100% {
         opacity: 0.2;
     }
+}
+
+/* math modify */
+.math-formula {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
 }
