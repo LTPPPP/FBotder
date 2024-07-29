@@ -190,3 +190,5 @@ where:
 * π (pi) is a mathematical constant approximately equal to 3.14159
 * r is the radius of the circle
 
+Hello there! How can I assist you today?
+
