@@ -37,16 +37,6 @@ Thử nghiệm thống kê được sử dụng để xác định xem một gi�
 * Công nghệ thông tin: Phân tích dữ liệu, học máy
 * Tiếp thị: Chiến dịch tiếp thị được nhắm mục tiêu
 
-**Phần mềm Xác Suất Thống Kê**
-
-* SPSS
-* SAS
-* R
-* Python
-* Microsoft Excel
-
-**Kết luận**
-
 Xác suất thống kê là một công cụ mạnh mẽ cho phép chúng ta hiểu được dữ liệu ngẫu nhiên và đưa ra những dự đoán có thông tin. Nó đóng một vai trò quan trọng trong nhiều lĩnh vực, từ khoa học đến kinh doanh.
 
 **Công thức xác suất cơ bản**
@@ -84,4 +74,59 @@ Xác suất thống kê là một công cụ mạnh mẽ cho phép chúng ta hi�
 * **Tỷ lệ thất nghiệp:** 2,1% (2021)
 * **Kỳ vọng tuổi thọ:** 76,6 năm (2021)
 * **Tỷ lệ biết chữ:** 99% (2021)
+
+**Công thức tính diện tích tam giác:**
+
+**A = (1/2) × b × h**
+
+Trong đó:
+
+* A là diện tích tam giác
+* b là độ dài đáy tam giác
+* h là chiều cao tam giác (là khoảng cách từ đáy lên đỉnh đối diện của tam giác)
+
+**Các chủ đề Toán cơ bản:**
+
+* **Số học:** Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trăm
+* **Đại số:** Biến, phương trình, bất phương trình, hệ phương trình
+* **Hình học:** Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lường
+* **Thống kê:** Thu thập, trình bày và phân tích dữ liệu
+
+**Các chuyên đề Toán nâng cao:**
+
+* **Giải tích:** Hàm số, đạo hàm, tích phân
+* **Đại số tuyến tính:** Ma trận, hệ thống phương trình tuyến tính
+* **Xác suất và thống kê:** Xác suất, phân phối xác suất, ước lượng thống kê
+* **Toán rời rạc:** Lý thuyết đồ thị, tổ hợp
+* **Toán ứng dụng:** Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khác
+
+**Các nguồn học Toán:**
+
+* **Sách giáo khoa:** Sách giáo khoa cung cấp nền tảng cơ bản về các chủ đề toán học.
+* **Giáo viên:** Giáo viên có thể cung cấp hướng dẫn và hỗ trợ trực tiếp.
+* **Trang web:** Có rất nhiều trang web cung cấp tài liệu học tập, bài tập và công cụ tương tác.
+* **ứng dụng:** Nhiều ứng dụng cung cấp các bài học, trò chơi và câu đố toán học để giúp học thú vị hơn.
+* **Gia sư:** Gia sư có thể cung cấp sự hỗ trợ cá nhân hóa cho các học sinh gặp khó khăn.
+
+**Lời khuyên để học Toán hiệu quả:**
+
+* **Tập luyện thường xuyên:** Giải nhiều bài toán là cách tốt nhất để cải thiện kỹ năng của bạn.
+* **Hiểu khái niệm:** Đừng chỉ ghi nhớ công thức, hãy cố gắng hiểu các khái niệm cơ bản.
+* **Áp dụng vào thực tế:** Tìm cách áp dụng toán học vào các tình huống thực tế để tăng cường sự hiểu biết của bạn.
+* **Yêu cầu trợ giúp khi cần:** Đừng ngại hỏi giáo viên, bạn bè hoặc gia sư khi bạn gặp khó khăn.
+* **Kiên trì:** Học toán đòi hỏi thời gian và nỗ lực, vì vậy đừng nản lòng nếu bạn mắc lỗi.
+
+
+Công thức Pytago:
+
+Trong một tam giác vuông, bình phương độ dài cạnh huyền (c) bằng tổng bình phương độ dài hai cạnh góc vuông (a và b):
+
+```
+c² = a² + b²
+```
+
+Trong đó:
+
+* c là độ dài cạnh huyền, đối diện với góc vuông
+* a và b là độ dài hai cạnh góc vuông
 
