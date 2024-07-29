@@ -208,17 +208,3 @@ Trong đó:
 * cr: chiều rộng
 * h: chiều cao
 * Scđ: diện tích 2 đáy = 2cd.cr
-Công thức tính lãi suất đơn giản**
-
-Lãi suất = Số tiền gốc x Lãi suất x Thời gian
-
-**Công thức tính lãi suất kép**
-
-Giá trị tương lai = Số tiền gốc x (1 + Lãi suất)^Thời gian
-
-Công thức tính năm nhuận:**
-
-Một năm được coi là năm nhuận nếu nó chia hết cho 400 hoặc chia hết cho 4 nhưng không chia hết cho 100. Ví dụ:**
-
-* Năm 2000 là năm nhuận: 2000 chia hết cho 400. Năm 2024 là năm nhuận: 2024 chia hết cho 4 nhưng không chia hết cho 100. Năm 2100 không phải là năm nhuận: 2100 chia hết cho 100 nhưng không chia hết cho 400.
-
