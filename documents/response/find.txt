@@ -130,3 +130,63 @@ Trong đó:
 * c là độ dài cạnh huyền, đối diện với góc vuông
 * a và b là độ dài hai cạnh góc vuông
 
+**PRF192: Professional Development for Engineers**
+
+**Course Overview:**
+
+PRF192 is a subject offered to undergraduate engineering students at FPT University. It aims to equip students with essential professional development skills to succeed as engineers in the industry.
+
+**Learning Objectives:**
+
+Upon completion of this subject, students should be able to:
+
+* Understand the importance of professional development in engineering
+* Develop effective communication and presentation skills
+* Enhance teamwork and collaboration abilities
+* Apply project management principles to engineering projects
+* Identify ethical and societal responsibilities of engineers
+* Utilize resources for continuous professional growth
+
+**Course Content:**
+
+The course typically covers the following topics:
+
+* **Professionalism and Ethics:** Role of engineers, ethics in engineering, professional organizations
+* **Communication Skills:** Effective writing, technical presentations, interpersonal communication
+* **Teamwork and Collaboration:** Team dynamics, communication within teams, project management tools
+* **Project Management:** Project planning, execution, and evaluation
+* **Career Development:** Resume writing, interviewing skills, networking, career planning
+* **Lifelong Learning:** Continuing education, professional certifications, research opportunities
+
+**Assessment:**
+
+Student assessment may include:
+
+* Assignments
+* Quizzes
+* Presentations
+* Class participation
+* Final project
+
+**Importance for Engineers:**
+
+PRF192 is crucial for engineering students as it provides them with the necessary skills to:
+
+* *Communicate effectively with colleagues, clients, and stakeholders.*
+* *Work effectively in teams and collaborate on complex projects.*
+* *Manage projects efficiently and meet deadlines.*
+* *Stay up-to-date with advancements in their field.*
+* *Maintain high ethical standards and contribute to society.*
+
+Area of square = side²
+
+The formula for the area of a circle is:
+
+A = πr²
+
+where:
+
+* A is the area of the circle
+* π (pi) is a mathematical constant approximately equal to 3.14159
+* r is the radius of the circle
+
