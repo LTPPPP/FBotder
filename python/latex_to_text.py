@@ -1,4 +1,5 @@
 import re
+
 def latex_to_text(latex):
     # Replace LaTeX syntax with corresponding text symbols
     replacements = {
@@ -21,11 +22,85 @@ def latex_to_text(latex):
         '\\pm': '+/-',
         '\\left(': '(',
         '\\right)': ')',
-        '\\': ''
+        '\\left[': '[',
+        '\\right]': ']',
+        '\\left\\{': '{',
+        '\\right\\}': '}',
+        '\\alpha': 'alpha',
+        '\\beta': 'beta',
+        '\\gamma': 'gamma',
+        '\\delta': 'delta',
+        '\\epsilon': 'epsilon',
+        '\\zeta': 'zeta',
+        '\\eta': 'eta',
+        '\\theta': 'theta',
+        '\\iota': 'iota',
+        '\\kappa': 'kappa',
+        '\\lambda': 'lambda',
+        '\\mu': 'mu',
+        '\\nu': 'nu',
+        '\\xi': 'xi',
+        '\\omicron': 'omicron',
+        '\\pi': 'pi',
+        '\\rho': 'rho',
+        '\\sigma': 'sigma',
+        '\\tau': 'tau',
+        '\\upsilon': 'upsilon',
+        '\\phi': 'phi',
+        '\\chi': 'chi',
+        '\\psi': 'psi',
+        '\\omega': 'omega',
+        '\\Delta': 'Delta',
+        '\\Gamma': 'Gamma',
+        '\\Lambda': 'Lambda',
+        '\\Omega': 'Omega',
+        '\\Phi': 'Phi',
+        '\\Pi': 'Pi',
+        '\\Psi': 'Psi',
+        '\\Sigma': 'Sigma',
+        '\\Theta': 'Theta',
+        '\\Upsilon': 'Upsilon',
+        '\\Xi': 'Xi',
+        '\\text{and}': 'and',
+        '\\text{or}': 'or',
+        '\\text{not}': 'not',
+        '\\neq': '!=',
+        '\\leq': '<=',
+        '\\geq': '>=',
+        '\\equiv': '===',
+        '\\approx': '~',
+        '\\sim': '~',
+        '\\propto': 'propto',
+        '\\infty': 'infinity',
+        '\\cdot': '*',
+        '\\times': '*',
+        '\\div': '/',
+        '\\sum': 'sum',
+        '\\int': 'integral',
+        '\\prod': 'product',
+        '\\subset': 'subset',
+        '\\supset': 'superset',
+        '\\subseteq': 'subseteq',
+        '\\supseteq': 'superset',
+        '\\cup': 'union',
+        '\\cap': 'intersection',
+        '\\forall': 'for all',
+        '\\exists': 'exists',
+        '\\neg': 'not',
+        '\\in': 'in',
+        '\\notin': 'not in',
+        '\\to': 'to',
+        '\\rightarrow': '->',
+        '\\leftarrow': '<-',
+        '\\Leftrightarrow': '<->',
+        '\\Rightarrow': '=>',
+        '\\Leftarrow': '<=',
+        '\\': ''  # General escape character
     }
+
     # Replace all LaTeX commands with text symbols
     for key, value in replacements.items():
-        latex = latex.replace(key, value)
+        latex = re.sub(re.escape(key), value, latex)
     
     # Handle power notation
     latex = re.sub(r'\^{(.+?)}', r'^\1', latex)

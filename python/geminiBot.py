@@ -13,6 +13,9 @@ import base64
 from latex_to_text import latex_to_text
 from format_text import format_response, generate_math_image, split_text_into_sentences, format_text
 from searching import web_search
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 # Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -50,6 +53,14 @@ def write_to_file(response):
 def generate_response(prompt):
     return model.generate_content(prompt).text
 
+def vector_similarity(query_vector, file_vector):
+    return cosine_similarity([query_vector], [file_vector])[0][0]
+
+def get_vector_representation(query, file_result):
+    vectorizer = TfidfVectorizer()
+    vectors = vectorizer.fit_transform([query, file_result])
+    return vectors.toarray()
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -73,23 +84,30 @@ def chatbot():
     
     query = ' '.join(sum_input)
     file_result = search_file(query)
+
     if file_result:
-        prompt = f"{MAIN_TEMPLATE}\n\nUser: {query}\n\nRelevant information: {file_result}\n\nChatbot:"
+        query_vector, file_vector = get_vector_representation(query, file_result)
+        similarity_score = vector_similarity(query_vector, file_vector)
+        if similarity_score > 0.6:
+            prompt = f"{MAIN_TEMPLATE}\n\nUser: {query}\n\nRelevant information: {file_result}\n\nChatbot:"
+        else:
+            web_result = web_search(query)
+            prompt = f"{MAIN_TEMPLATE}\n\nUser: {query}\n\nRelevant information from web: {web_result}\n\nChatbot:" if web_result else f"{MAIN_TEMPLATE}\n\nUser: {query}\n\nChatbot:"
     else:
         web_result = web_search(query)
         prompt = f"{MAIN_TEMPLATE}\n\nUser: {query}\n\nRelevant information from web: {web_result}\n\nChatbot:" if web_result else f"{MAIN_TEMPLATE}\n\nUser: {query}\n\nChatbot:"
     
     response = generate_response(prompt)
     response_cleaned = format_response(response)
-    respones_latex_to_text = latex_to_text(format_text(response_cleaned))
+    response_latex_to_text = latex_to_text(format_text(response_cleaned))
 
     if 'formula' in query or 'công thức' in query:
         math_image = generate_math_image(query)
-        response_cleaned = f"{respones_latex_to_text}\n\n{math_image}"
+        response_cleaned = f"{response_latex_to_text}\n\n{math_image}"
     
-    write_to_file(respones_latex_to_text)
-    print(f"User: {query}\n\nChatbot: {respones_latex_to_text}\n")
-    return jsonify({'response': respones_latex_to_text})
+    write_to_file(response_latex_to_text)
+    print(f"User: {query}\n\nChatbot: {response_latex_to_text}\n")
+    return jsonify({'response': response_latex_to_text})
 
 if __name__ == '__main__':
     app.run(debug=True)
