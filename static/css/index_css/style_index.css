@@ -68,6 +68,14 @@ body {
     background-color: #f0f0f0;
     color: black;
     align-self: flex-start;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.bot-message strong {
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
 }
 
 @keyframes fadeIn {
