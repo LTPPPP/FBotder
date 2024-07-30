@@ -1,6 +1,5 @@
 # AI for test
-
-A brief description of what this project does and who it's for.
+A basic AI chatbot for beginners and answers basic information from users including educational information such as life, culture, politics, education,...
 
 ## Table of Contents
 
@@ -11,12 +10,28 @@ A brief description of what this project does and who it's for.
 - [Contact Information](#contact-information) - Not yet
 - [Acknowledgments](#acknowledgments) - Not yet
 
-## Installation
+## Run the project
 
 1. Clone the repo
    ```sh
    git clone https://github.com/LTPPPP/FBotder.git
 
-2. Change directory
+2. Install library for python
+   ```sh
+   pip install requests Flask beautifulsoup4 lxml google-generativeai nltk rake-nltk sympy matplotlib
+3. Change directory
    ```sh
    cd python
+4. Start the project
+   ```sh
+   python geminiBot.py
+
+## Folder Structure
+- `templates`: HTML templates for the web application.
+- `static`: Static files such as CSS and JavaScript.
+- `python`: Python file.
+- `documents`: document, dataset,...
+
+## License
+
+This project is licensed under the MIT License.
