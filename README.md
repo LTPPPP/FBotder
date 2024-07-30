@@ -1,4 +1,4 @@
-# AI for FCoder
+# AI for test
 
 A brief description of what this project does and who it's for.
 
