@@ -27,7 +27,7 @@ r = Rake()
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set up Gemini API
-genai.configure(api_key='AIzaSyABvqN-8d3jpqlOeE1HzSK07LcW-R1B0Ss')
+genai.configure(api_key='API_KEY')
 model = genai.GenerativeModel('gemini-pro')
 
 # Initialize the main template
