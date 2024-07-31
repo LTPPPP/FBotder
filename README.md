@@ -4,13 +4,12 @@ A basic AI chatbot for beginners and answers basic information from users includ
 ## Table of Contents
 
 - [Installation](#installation) - Not yet
-- [Usage](#usage) - Not yet
 - [Contributing](#contributing) - Not yet
-- [License](#license) - Not yet
+- [License](#license)
 - [Contact Information](#contact-information) - Not yet
 - [Acknowledgments](#acknowledgments) - Not yet
 
-## Run the project
+## Installation
 
 1. Clone the repo
    ```sh
