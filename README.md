@@ -34,4 +34,4 @@ A basic AI chatbot for beginners and answers basic information from users includ
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the LTP License.
