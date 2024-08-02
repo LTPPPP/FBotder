@@ -4,9 +4,9 @@ from bs4 import BeautifulSoup
 
 @lru_cache(maxsize=50)
 def web_search(query):
-    if query.__contains__('fomula') or query.__contains__('công thức') :
+    if 'formula' in query or 'công thức' in query:
         url = f"https://www.google.com/search?q={query}+formula"
-    else :
+    else:
         url = f"https://www.google.com/search?q={query}"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')

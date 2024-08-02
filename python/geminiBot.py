@@ -6,12 +6,13 @@ import google.generativeai as genai
 import nltk
 from rake_nltk import Rake
 import base64
-from latex_to_text import latex_to_text
-from format_text import format_response, split_text_into_sentences, format_text
+from pylatexenc.latex2text import LatexNodes2Text
 from searching import web_search
 import json
 import os
 from datetime import datetime
+import html  # Import html module for escaping
+
 # Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -23,42 +24,29 @@ r = Rake()
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set up Gemini API
-genai.configure(api_key='API_KEY')
+genai.configure(api_key='AIzaSyABvqN-8d3jpqlOeE1HzSK07LcW-R1B0Ss')
 model = genai.GenerativeModel('gemini-pro')
 
 # Initialize the main template
-MAIN_TEMPLATE = """You are an educational assistant specializing in mathematics, coding, and formulas. 
+MAIN_TEMPLATE = """
+You are an educational assistant specializing in mathematics, coding, and formulas. 
 Please provide accurate and detailed explanations for questions related to these topics. 
 For math problems, show step-by-step solutions. 
-For coding questions, provide explanations and example code snippets when appropriate, when providing code snippets, please wrap them in triple backticks (```) and specify the language.. 
 For formulas, explain their components and applications. 
+For visualizations, include graphs, diagrams, or charts when necessary.
+For references, cite reliable sources and provide links for further reading.
 Use LaTeX for mathematical notation when necessary.
+Answer with Vietnamese language.
+Sumarize the question and answer in the end.
 """
 
 # Dictionary to store user context
 user_context = {}
 
-
-def format_code_blocks(text):
-    """
-    Format code blocks by wrapping them in <pre><code> tags and applying syntax highlighting.
-    """
-
-    def replace_code_block(match):
-        language = match.group(1) or ''
-        code = match.group(2)
-        return f'<pre><code class="language-{language}">{code}</code></pre>'
-
-    # Replace code blocks
-    text = re.sub(r'```(\w+)?\n(.*?)\n```', replace_code_block, text, flags=re.DOTALL)
-    return text
-
-
 def generate_response(prompt):
     response = model.generate_content(prompt).text
-    return format_code_blocks(response)
+    return response
 
-# Add these functions for logging
 def ensure_directory_exists(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -102,7 +90,6 @@ def log_conversation(user_id, user_input, response):
 def home():
     return render_template('index.html')
 
-
 @app.route('/chat', methods=['POST'])
 def chatbot():
     user_input = request.json.get('message')
@@ -125,13 +112,8 @@ def chatbot():
     if user_id not in user_context:
         user_context[user_id] = []
 
-    user_input_cleaned = user_input.replace('"', '').replace('**', '')
-    r.extract_keywords_from_sentences([user_input_cleaned])
-    sum_input = r.get_ranked_phrases()
-    if not sum_input:
-        return jsonify({'response': "Sorry, I couldn't understand your input. Please try again."})
-
-    query = ' '.join(sum_input)
+    query = ' '.join(user_input.split())
+    print("query : " + query)
     web_result = web_search(query)
 
     # Append user input to the context
@@ -140,18 +122,21 @@ def chatbot():
     # Create the prompt with context
     context = "\n".join(user_context[user_id])
     prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nRelevant information from web: {web_result}\n\nChatbot:" if web_result else f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"
-
+    
+    # Generate response from the model
     response = generate_response(prompt)
-    response_cleaned = format_response(response)
-    response_latex_to_text = latex_to_text(format_text(response_cleaned))
+    # response_cleaned = format_response(response)
+    response_latex_to_text = LatexNodes2Text().latex_to_text(response)
+    
+    # Escape special characters in the response
+    response_escaped = html.escape(response_latex_to_text)
 
     # Append chatbot response to the context
-    user_context[user_id].append(f"Chatbot: {response_latex_to_text}")
+    user_context[user_id].append(f"Chatbot: {response_escaped}")
     # Log the conversation
-    log_conversation(user_id, user_input, response_latex_to_text)
-    print(f"User: {query}\n\nChatbot: {response_latex_to_text}\n")
-    return jsonify({'response': response_latex_to_text})
-
+    log_conversation(user_id, user_input, response_escaped)
+    print(f"User: {query}\n\nChatbot: {response_escaped}\n")
+    return jsonify({'response': response_escaped})
 
 if __name__ == '__main__':
     app.run(debug=True)
