@@ -64,4 +64,30 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
+
+    const uploadBtn = document.getElementById('upload-btn');
+    const fileUpload = document.getElementById('file-upload');
+
+    uploadBtn.addEventListener('click', () => {
+        fileUpload.click();
+    });
+
+    fileUpload.addEventListener('change', () => {
+        const file = fileUpload.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => addMessage(data.response, false))
+                .catch(error => {
+                    console.error('Error:', error);
+                    addMessage('An error occurred during file upload. Please try again.', false);
+                });
+        }
+    });
 });
