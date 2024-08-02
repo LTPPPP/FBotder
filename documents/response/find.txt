@@ -208,3 +208,344 @@ Trong đó:
 * cr: chiều rộng
 * h: chiều cao
 * Scđ: diện tích 2 đáy = 2cd.cr
+
+You are a helpful assistant. These Human will ask you questions about various topics. 
+Use the following piece of context to answer the question. 
+If you don't know the answer, just say you don't know. 
+Keep the answer concise and informative.
+
+Context: [Document(metadata={'source': '../documents/response/find.txt'}, page_content='Xác suất Thống kênnGiới thiệunnXác suất thống kê là một nhánh của toán học liên quan đến thu thập, phân tích và diễn giải dữ liệu ngẫu nhiên. Nó cho phép chúng ta đưa ra dự đoán và suy luận về các biến cố ngẫu nhiên dựa trên dữ liệu quan sát được.nnCác Khái niệm Cơ bảnnn* Sự kiện: Một kết quả hoặc tập hợp các kết quả có thể xảy ra.n* Không gian mẫu: Tập hợp tất cả các kết quả có thể xảy ra cho một thí nghiệm.n* Xác suất: Một con số giữa 0 và 1 biểu thị khả năng xảy ra của một sự kiện.n* Phân phối xác suất: Mô tả cách xác suất được phân bổ trên không gian mẫu.nnCác Loại Phân Phối Xác Suấtnn* Phân phối nhị thứcn* Phân phối chuẩnn* Phân phối Poissonn* Phân phối t-Studentn* Phân phối FnnThử nghiệm Thống kênnThử nghiệm thống kê được sử dụng để xác định xem một giả thuyết có được hỗ trợ bởi dữ liệu hay không. Các bước liên quan đến:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='Xác suất Thống kênnGiới thiệunnXác suất thống kê là một nhánh của toán học liên quan đến thu thập, phân tích và diễn giải dữ liệu ngẫu nhiên. Nó cho phép chúng ta đưa ra dự đoán và suy luận về các biến cố ngẫu nhiên dựa trên dữ liệu quan sát được.nnCác Khái niệm Cơ bảnnn* Sự kiện: Một kết quả hoặc tập hợp các kết quả có thể xảy ra.n* Không gian mẫu: Tập hợp tất cả các kết quả có thể xảy ra cho một thí nghiệm.n* Xác suất: Một con số giữa 0 và 1 biểu thị khả năng xảy ra của một sự kiện.n* Phân phối xác suất: Mô tả cách xác suất được phân bổ trên không gian mẫu.nnCác Loại Phân Phối Xác Suấtnn* Phân phối nhị thứcn* Phân phối chuẩnn* Phân phối Poissonn* Phân phối t-Studentn* Phân phối FnnThử nghiệm Thống kênnThử nghiệm thống kê được sử dụng để xác định xem một giả thuyết có được hỗ trợ bởi dữ liệu hay không. Các bước liên quan đến:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:')]
+Question: xác suất thông kê
+Answer: 
+Xác suất thống kê là một nhánh của toán học liên quan đến thu thập, phân tích và diễn giải dữ liệu ngẫu nhiên. Nó cho phép chúng ta đưa ra dự đoán và suy luận về các
+
+
+You are a helpful assistant. These Human will ask you questions about various topics. 
+Use the following piece of context to answer the question. 
+If you don't know the answer, just say you don't know. 
+Keep the answer concise and informative.
+
+Context: [Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Sách giáo khoa: Sách giáo khoa cung cấp nền tảng cơ bản về các chủ đề toán học.n* Giáo viên: Giáo viên có thể cung cấp hướng dẫn và hỗ trợ trực tiếp.n* Trang web: Có rất nhiều trang web cung cấp tài liệu học tập, bài tập và công cụ tương tác.n* ứng dụng: Nhiều ứng dụng cung cấp các bài học, trò chơi và câu đố toán học để giúp học thú vị hơn.n* Gia sư: Gia sư có thể cung cấp sự hỗ trợ cá nhân hóa cho các học sinh gặp khó khăn.nnLời khuyên để học Toán hiệu quả:nn* Tập luyện thường xuyên: Giải nhiều bài toán là cách tốt nhất để cải thiện kỹ năng của bạn.n* Hiểu khái niệm: Đừng chỉ ghi nhớ công thức, hãy cố gắng hiểu các khái niệm cơ bản.n* Áp dụng vào thực tế: Tìm cách áp dụng toán học vào các tình huống thực tế để tăng cường sự hiểu biết của bạn.n* Yêu cầu trợ giúp khi cần: Đừng ngại hỏi giáo viên, bạn bè hoặc gia sư khi bạn gặp khó khăn.n* Kiên trì: Học toán đòi hỏi thời gian và nỗ lực, vì vậy đừng nản lòng nếu bạn mắc lỗi.'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Sách giáo khoa: Sách giáo khoa cung cấp nền tảng cơ bản về các chủ đề toán học.n* Giáo viên: Giáo viên có thể cung cấp hướng dẫn và hỗ trợ trực tiếp.n* Trang web: Có rất nhiều trang web cung cấp tài liệu học tập, bài tập và công cụ tương tác.n* ứng dụng: Nhiều ứng dụng cung cấp các bài học, trò chơi và câu đố toán học để giúp học thú vị hơn.n* Gia sư: Gia sư có thể cung cấp sự hỗ trợ cá nhân hóa cho các học sinh gặp khó khăn.nnLời khuyên để học Toán hiệu quả:nn* Tập luyện thường xuyên: Giải nhiều bài toán là cách tốt nhất để cải thiện kỹ năng của bạn.n* Hiểu khái niệm: Đừng chỉ ghi nhớ công thức, hãy cố gắng hiểu các khái niệm cơ bản.n* Áp dụng vào thực tế: Tìm cách áp dụng toán học vào các tình huống thực tế để tăng cường sự hiểu biết của bạn.n* Yêu cầu trợ giúp khi cần: Đừng ngại hỏi giáo viên, bạn bè hoặc gia sư khi bạn gặp khó khăn.n* Kiên trì: Học toán đòi hỏi thời gian và nỗ lực, vì vậy đừng nản lòng nếu bạn mắc lỗi.')]
+Question: công thức đạo hàm
+Answer: 
+Đạo hàm (hay còn gọi là derivative) là một khái niệm trong giải tích. Nó đại diện cho tốc độ thay đổi của một hàm số trong một điểm xác định. Công thức để tín
+
+
+You are a helpful assistant. These Human will ask you questions about various topics. 
+Use the following piece of context to answer the question. 
+If you don't know the answer, just say you don't know. 
+Keep the answer concise and informative.
+
+Context: [Document(metadata={'source': '../documents/response/find.txt'}, page_content='Xác suất Thống kênnGiới thiệunnXác suất thống kê là một nhánh của toán học liên quan đến thu thập, phân tích và diễn giải dữ liệu ngẫu nhiên. Nó cho phép chúng ta đưa ra dự đoán và suy luận về các biến cố ngẫu nhiên dựa trên dữ liệu quan sát được.nnCác Khái niệm Cơ bảnnn* Sự kiện: Một kết quả hoặc tập hợp các kết quả có thể xảy ra.n* Không gian mẫu: Tập hợp tất cả các kết quả có thể xảy ra cho một thí nghiệm.n* Xác suất: Một con số giữa 0 và 1 biểu thị khả năng xảy ra của một sự kiện.n* Phân phối xác suất: Mô tả cách xác suất được phân bổ trên không gian mẫu.nnCác Loại Phân Phối Xác Suấtnn* Phân phối nhị thứcn* Phân phối chuẩnn* Phân phối Poissonn* Phân phối t-Studentn* Phân phối FnnThử nghiệm Thống kênnThử nghiệm thống kê được sử dụng để xác định xem một giả thuyết có được hỗ trợ bởi dữ liệu hay không. Các bước liên quan đến:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='Xác suất Thống kênnGiới thiệunnXác suất thống kê là một nhánh của toán học liên quan đến thu thập, phân tích và diễn giải dữ liệu ngẫu nhiên. Nó cho phép chúng ta đưa ra dự đoán và suy luận về các biến cố ngẫu nhiên dựa trên dữ liệu quan sát được.nnCác Khái niệm Cơ bảnnn* Sự kiện: Một kết quả hoặc tập hợp các kết quả có thể xảy ra.n* Không gian mẫu: Tập hợp tất cả các kết quả có thể xảy ra cho một thí nghiệm.n* Xác suất: Một con số giữa 0 và 1 biểu thị khả năng xảy ra của một sự kiện.n* Phân phối xác suất: Mô tả cách xác suất được phân bổ trên không gian mẫu.nnCác Loại Phân Phối Xác Suấtnn* Phân phối nhị thứcn* Phân phối chuẩnn* Phân phối Poissonn* Phân phối t-Studentn* Phân phối FnnThử nghiệm Thống kênnThử nghiệm thống kê được sử dụng để xác định xem một giả thuyết có được hỗ trợ bởi dữ liệu hay không. Các bước liên quan đến:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='Xác suất Thống kênnGiới thiệunnXác suất thống kê là một nhánh của toán học liên quan đến thu thập, phân tích và diễn giải dữ liệu ngẫu nhiên. Nó cho phép chúng ta đưa ra dự đoán và suy luận về các biến cố ngẫu nhiên dựa trên dữ liệu quan sát được.nnCác Khái niệm Cơ bảnnn* Sự kiện: Một kết quả hoặc tập hợp các kết quả có thể xảy ra.n* Không gian mẫu: Tập hợp tất cả các kết quả có thể xảy ra cho một thí nghiệm.n* Xác suất: Một con số giữa 0 và 1 biểu thị khả năng xảy ra của một sự kiện.n* Phân phối xác suất: Mô tả cách xác suất được phân bổ trên không gian mẫu.nnCác Loại Phân Phối Xác Suấtnn* Phân phối nhị thứcn* Phân phối chuẩnn* Phân phối Poissonn* Phân phối t-Studentn* Phân phối FnnThử nghiệm Thống kênnThử nghiệm thống kê được sử dụng để xác định xem một giả thuyết có được hỗ trợ bởi dữ liệu hay không. Các bước liên quan đến:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:')]
+Question: công thức xác suất thống kê
+Answer: 
+The basic formula for probability in statistics is: 
+
+P(event) = Number of favorable outcomes / Total number of outcomes
+
+This formula represents the probability (P) of a specific event, which is calculated by dividing the number of favorable outcomes by the total number of outcomes in the sample space.
+
+
+You are a helpful assistant. These Human will ask you questions about various topics. 
+Use the following piece of context to answer the question. 
+If you don't know the answer, just say you don't know. 
+Keep the answer concise and informative.
+
+Context: [Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Số học: Các phép toán cơ bản (cộng, trừ, nhân, chia), phân số, số thập phân, phần trămn* Đại số: Biến, phương trình, bất phương trình, hệ phương trìnhn* Hình học: Hình dạng phẳng (tam giác, hình vuông, hình tròn...), hình dạng không gian (hình hộp chữ nhật, hình cầu...), phép đo lườngn* Thống kê: Thu thập, trình bày và phân tích dữ liệunnCác chuyên đề Toán nâng cao:nn* Giải tích: Hàm số, đạo hàm, tích phânn* Đại số tuyến tính: Ma trận, hệ thống phương trình tuyến tínhn* Xác suất và thống kê: Xác suất, phân phối xác suất, ước lượng thống kên* Toán rời rạc: Lý thuyết đồ thị, tổ hợpn* Toán ứng dụng: Ứng dụng của toán học trong khoa học, kỹ thuật và các lĩnh vực khácnnCác nguồn học Toán:'), Document(metadata={'source': '../documents/response/find.txt'}, page_content='* Sách giáo khoa: Sách giáo khoa cung cấp nền tảng cơ bản về các chủ đề toán học.n* Giáo viên: Giáo viên có thể cung cấp hướng dẫn và hỗ trợ trực tiếp.n* Trang web: Có rất nhiều trang web cung cấp tài liệu học tập, bài tập và công cụ tương tác.n* ứng dụng: Nhiều ứng dụng cung cấp các bài học, trò chơi và câu đố toán học để giúp học thú vị hơn.n* Gia sư: Gia sư có thể cung cấp sự hỗ trợ cá nhân hóa cho các học sinh gặp khó khăn.nnLời khuyên để học Toán hiệu quả:nn* Tập luyện thường xuyên: Giải nhiều bài toán là cách tốt nhất để cải thiện kỹ năng của bạn.n* Hiểu khái niệm: Đừng chỉ ghi nhớ công thức, hãy cố gắng hiểu các khái niệm cơ bản.n* Áp dụng vào thực tế: Tìm cách áp dụng toán học vào các tình huống thực tế để tăng cường sự hiểu biết của bạn.n* Yêu cầu trợ giúp khi cần: Đừng ngại hỏi giáo viên, bạn bè hoặc gia sư khi bạn gặp khó khăn.n* Kiên trì: Học toán đòi hỏi thời gian và nỗ lực, vì vậy đừng nản lòng nếu bạn mắc lỗi.')]
+Question: công thức đạo hàm
+Answer: 
+To find the derivative or đạo hàm of a function, you can use the limit definition of the derivative: f'(x) = lim(h->0) [f(x+h) - f(x)] / h. Alternatively, you can use various differentiation rules such as the power rule, product rule, quotient rule, or chain rule, depending on the form of the function. The power rule states that if f(x) = x^
+
+Đạo hàm
+
+Đối với hàm số y = f(x):
+
+Quy tắc tổng hiệu:
+
+
+<strong>f'(x) = (f(x) + g(x))' = f'(x) + g'(x)</strong>
+
+<strong>f'(x) = (f(x) - g(x))' = f'(x) - g'(x)</strong>
+
+Quy tắc tích số:
+
+
+<strong>f'(x) = (f(x) * g(x))' = f'(x) * g(x) + f(x) * g'(x)</strong>
+
+Quy tắc thương số:
+
+
+<strong>f'(x) = (f(x) / g(x))' = (g(x) * f'(x) - f(x) * g'(x)) / g(x)^2</strong>
+
+Quy tắc lũy thừa:
+
+
+<strong>f'(x) = (x^n)' = n * x^(n-1)</strong>
+
+Quy tắc chuỗi:
+
+
+<strong>f'(x) = (f(g(x)))' = f'(g(x)) * g'(x)</strong>
+
+Hàm lượng giác:
+
+
+<strong>sin(x)' = cos(x)</strong>
+
+<strong>cos(x)' = -sin(x)</strong>
+
+<strong>tan(x)' = 1/cos(x)^2</strong>
+
+<strong>cot(x)' = -1/sin(x)^2</strong>
+
+Hàm mũ và logarit:
+
+
+<strong>e^x)' = e^x</strong>
+
+<strong>ln(x)' = 1/x</strong>
+
+<strong>log(x, b)' = 1/(x * ln(b))</strong>
+
+Ví dụ:
+
+
+<strong>f(x) = x^3 + 2x^2 - 5</strong>
+<strong>f'(x) = (x^3)' + (2x^2)' - (5)' = 3x^2 + 4x</strong>
+
+<strong>g(x) = sin(x)cos(x)</strong>
+<strong>g'(x) = (sin(x)cos(x))' = sin(x) * (-sin(x)) + cos(x) * cos(x) = cos^2(x) - sin^2(x)</strong>
+
+<strong>h(x) = ln(x^2 + 1)</strong>
+<strong>h'(x) = (1/(x^2 + 1))' * (x^2 + 1)' = 2x/(x^2 + 1)^2</strong>
+
+Công thức đạo hàm
+
+Đạo hàm của hằng số:
+
+
+<strong>f(x) = c → f'(x) = 0</strong>
+
+Đạo hàm của hàm đa thức bậc n:
+
+
+<strong>f(x) = x^n → f'(x) = nx^(n-1)</strong>
+
+Đạo hàm của hàm mũ:
+
+
+<strong>f(x) = a^x → f'(x) = a^x * ln(a)</strong>
+
+Đạo hàm của hàm logarit:
+
+
+<strong>f(x) = logₐ(x) → f'(x) = 1/(x*ln(a))</strong>
+
+Đạo hàm của hàm lượng giác:
+
+
+<strong>f(x) = sin(x) → f'(x) = cos(x)</strong>
+
+<strong>f(x) = cos(x) → f'(x) = -sin(x)</strong>
+
+<strong>f(x) = tan(x) → f'(x) = sec²(x)</strong>
+
+<strong>f(x) = cot(x) → f'(x) = -csc²(x)</strong>
+
+Đạo hàm của hàm nghịch đảo:
+
+
+<strong>f(x) = x^(-1) = 1/x → f'(x) = -1/x²</strong>
+
+Đạo hàm của hàm hợp:
+
+
+<strong>f(x) = g(h(x)) → f'(x) = g'(h(x)) * h'(x)</strong>
+
+Đạo hàm của tích:
+
+
+<strong>f(x) = g(x) * h(x) → f'(x) = g'(x) * h(x) + g(x) * h'(x)</strong>
+
+Đạo hàm của thương:
+
+
+<strong>f(x) = g(x) / h(x) → f'(x) = (h(x) * g'(x) - g(x) * h'(x)) / h(x)²</strong>
+
+Công thức Đạo Hàm
+
+Hằng số
+
+<strong>f(x) = C => f'(x) = 0</strong>
+
+Hàm lũy thừa
+
+<strong>f(x) = x^n => f'(x) = nx^n-1</strong>
+
+Hàm mũ
+
+<strong>f(x) = e^x => f'(x) = e^x</strong>
+
+Hàm logarit
+
+<strong>f(x) = log_a x => f'(x) = frac{1}{x ln a}</strong>
+
+Hàm lượng giác
+
+<strong>f(x) = sin x => f'(x) = cos x</strong>
+
+<strong>f(x) = cos x => f'(x) = -sin x</strong>
+
+<strong>f(x) = tan x => f'(x) = sec^2 x</strong>
+
+Quy tắc tổng, hiệu
+
+<strong>f(x) = u(x) +/- v(x) => f'(x) = u'(x) +/- v'(x)</strong>
+
+Quy tắc tích
+
+<strong>f(x) = u(x) * v(x) => f'(x) = u'(x)v(x) + u(x)v'(x)</strong>
+
+Quy tắc thương
+
+<strong>f(x) = frac{u(x)}{v(x)} => f'(x) = frac{v(x)u'(x) - u(x)v'(x)}{v(x)^2}</strong>
+
+Hàm hợp
+
+<strong>f(x) = g(h(x)) => f'(x) = g'(h(x)) * h'(x)</strong>
+
+Các Ứng dụng của Xác Suất Thống Kê:
+
+
+<strong>Kinh doanh và Tài chính:</strong>
+<strong>Đánh giá rủi ro đầu tư</strong>
+<strong>Dự báo doanh số và nhu cầu</strong>
+<strong>Phân tích thị trường</strong>
+
+<strong>Khoa học và Nghiên cứu:</strong>
+<strong>Thử nghiệm lâm sàng</strong>
+<strong>Biểu mẫu khảo sát</strong>
+<strong>Mô phỏng khoa học</strong>
+
+<strong>Giáo dục:</strong>
+<strong>Đánh giá kết quả học tập</strong>
+<strong>Tạo bài kiểm tra chuẩn hóa</strong>
+<strong>Phân tích dữ liệu học sinh</strong>
+
+<strong>Quản lý chất lượng:</strong>
+<strong>Kiểm tra lỗi</strong>
+<strong>Cải tiến quy trình</strong>
+<strong>Phân tích hệ thống</strong>
+
+<strong>Bảo hiểm:</strong>
+<strong>Xác định rủi ro</strong>
+<strong>Trích lập phí bảo hiểm</strong>
+<strong>Đánh giá tổn thất</strong>
+
+<strong>Y tế:</strong>
+<strong>Chẩn đoán bệnh</strong>
+<strong>Đánh giá tác dụng của thuốc</strong>
+<strong>Nghiên cứu dịch tễ học</strong>
+
+<strong>Môi trường:</strong>
+<strong>Mô hình hóa biến đổi khí hậu</strong>
+<strong>Đánh giá rủi ro môi trường</strong>
+<strong>Phân tích dữ liệu ô nhiễm</strong>
+
+Đồ thị Thống kê Dân số Thế giới trong 10 năm
+
+Trục hoành: Năm
+Trục tung: Dân số (tỷ người)
+
+Dấu hiệu: Đường cong tăng trưởng dân số thế giới
+
+Điểm dữ liệu:
+
+| Năm | Dân số (tỷ người) |
+|---|---|
+| 2013 | 7,2 |
+| 2014 | 7,3 |
+| 2015 | 7,4 |
+| 2016 | 7,5 |
+| 2017 | 7,6 |
+| 2018 | 7,7 |
+| 2019 | 7,8 |
+| 2020 | 7,9 |
+| 2021 | 8,0 |
+| 2022 | 8,1 |
+
+Xu hướng:
+
+Nhìn chung, dân số thế giới đã tăng liên tục trong thập kỷ qua. Tốc độ tăng trưởng có phần chậm lại trong những năm gần đây nhưng vẫn là dương.
+
+Ghi chú:
+
+
+<strong>Dữ liệu dựa trên ước tính của Liên hợp quốc.</strong>
+
+<strong>Dân số thế giới ước tính sẽ đạt 8,5 tỷ vào năm 2030.</strong>
+
+Công thức đạo hàm cơ bản
+
+Hàm số mũ
+
+<strong>f(x) = a^x</strong>
+
+<strong>f'(x) = a^x * ln(a)</strong>
+
+Hàm số logarit
+
+<strong>f(x) = log_a(x)</strong>
+
+<strong>f'(x) = 1/(x * ln(a))</strong>
+
+Hàm số lượng giác
+
+<strong>f(x) = sin(x)</strong>
+
+<strong>f'(x) = cos(x)</strong>
+
+<strong>f(x) = cos(x)</strong>
+
+<strong>f'(x) = -sin(x)</strong>
+
+<strong>f(x) = tan(x)</strong>
+
+<strong>f'(x) = sec^2(x)</strong>
+
+Hàm số đa thức
+
+<strong>f(x) = ax^n</strong>
+
+<strong>f'(x) = nax^(n-1)</strong>
+
+Hàm số hợp
+
+<strong>f(x) = g(h(x))</strong>
+
+<strong>f'(x) = g'(h(x)) * h'(x)</strong>
+
+Quy tắc chuỗi
+
+<strong>f(x) = f(g(x))</strong>
+
+<strong>f'(x) = f'(g(x)) * g'(x)</strong>
+
+Hàm số nghịch đảo
+
+<strong>f(x) = g^-1(x)</strong>
+
+<strong>f'(x) = 1/g'(g^-1(x))</strong>
+
+Hàm số tham số
+
+<strong>f(t) = (x(t), y(t))</strong>
+
+<strong>f'(t) = (x'(t), y'(t))</strong>
+
+Đạo hàm theo cấp n
+
+<strong>f^(n)(x) = (d/dx)^(n)f(x)</strong>
+
+<strong>f^(n+1)(x) = d/dx (f^(n)(x))</strong>
+
