@@ -1,6 +1,8 @@
 # AI for test
 A basic AI chatbot for beginners and answers basic information from users including educational information such as life, culture, politics, education,...
 
+```Not for code generation``` 
+
 ## Table of Contents
 
 - [Installation](#installation) - Not yet
