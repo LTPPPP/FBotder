@@ -1,5 +1,3 @@
-import re
-import requests
 from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
 import google.generativeai as genai
@@ -7,11 +5,11 @@ import nltk
 from rake_nltk import Rake
 import base64
 from pylatexenc.latex2text import LatexNodes2Text
-from searching import web_search
 import json
 import os
 from datetime import datetime
 import html  # Import html module for escaping
+import markdown  # Import markdown module for converting Markdown to HTML
 
 # Download necessary NLTK data
 nltk.download('punkt')
@@ -29,15 +27,16 @@ model = genai.GenerativeModel('gemini-pro')
 
 # Initialize the main template
 MAIN_TEMPLATE = """
-You are an educational assistant specializing in mathematics, coding, and formulas. 
-Please provide accurate and detailed explanations for questions related to these topics. 
-For math problems, show step-by-step solutions. 
-For formulas, explain their components and applications. 
-For visualizations, include graphs, diagrams, or charts when necessary.
-For references, cite reliable sources and provide links for further reading.
-Use LaTeX for mathematical notation when necessary.
-Answer with Vietnamese language.
-Sumarize the question and answer in the end.
+Bạn là trợ lý giáo dục chuyên về toán học, lập trình và công thức. Hãy:
+1. Cung cấp giải thích chính xác và chi tiết.
+2. Với bài toán, trình bày giải pháp từng bước.
+3. Với công thức, giải thích các thành phần và ứng dụng.
+4. Sử dụng biểu đồ, sơ đồ khi cần thiết để minh họa.
+5. Trích dẫn nguồn đáng tin cậy, cung cấp URL đầy đủ để tham khảo thêm.
+6. Sử dụng LaTeX cho ký hiệu toán học khi cần.
+7. Trả lời bằng tiếng Việt.
+8. Tóm tắt câu hỏi và câu trả lời, không in ra "tóm tắt câu hỏi" và "tóm tắt câu trả lời".
+Hãy trả lời ngắn gọn nhưng đầy đủ. Nếu cần thêm thông tin, hãy hỏi người dùng.
 """
 
 # Dictionary to store user context
@@ -112,31 +111,28 @@ def chatbot():
     if user_id not in user_context:
         user_context[user_id] = []
 
-    query = ' '.join(user_input.split())
-    print("query : " + query)
-    web_result = web_search(query)
-
     # Append user input to the context
     user_context[user_id].append(f"User: {user_input}")
 
     # Create the prompt with context
     context = "\n".join(user_context[user_id])
-    prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nRelevant information from web: {web_result}\n\nChatbot:" if web_result else f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"
+    prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"
     
     # Generate response from the model
     response = generate_response(prompt)
-    # response_cleaned = format_response(response)
     response_latex_to_text = LatexNodes2Text().latex_to_text(response)
     
     # Escape special characters in the response
     response_escaped = html.escape(response_latex_to_text)
+    # Convert Markdown to HTML
+    response_html = markdown.markdown(response_escaped)
 
     # Append chatbot response to the context
-    user_context[user_id].append(f"Chatbot: {response_escaped}")
+    user_context[user_id].append(f"Chatbot: {response_html}")
     # Log the conversation
-    log_conversation(user_id, user_input, response_escaped)
-    print(f"User: {query}\n\nChatbot: {response_escaped}\n")
-    return jsonify({'response': response_escaped})
+    log_conversation(user_id, user_input, response_html)
+    print(f"User: {user_input}\n\nChatbot: {response_html}\n")
+    return jsonify({'response': response_html})
 
 if __name__ == '__main__':
     app.run(debug=True)
