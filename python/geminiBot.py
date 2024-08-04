@@ -28,7 +28,12 @@ r = Rake()
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set up Gemini API
+<<<<<<< HEAD
 genai.configure(api_key='AIzaSyABvqN-8d3jpqlOeE1HzSK07LcW-R1B0Ss')
+=======
+genai.configure(api_key='API_KEY')
+# model = genai.GenerativeModel('gemini-pro')
+>>>>>>> b15db421d4fbd94687574718c1a9757b8e08b2b4
 model = genai.GenerativeModel('gemini-1.5-pro')
 
 UPLOAD_FOLDER = 'uploads'
