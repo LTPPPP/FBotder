@@ -1,4 +1,5 @@
 # python/geminiBot.py
+
 from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
 import google.generativeai as genai
@@ -28,12 +29,7 @@ r = Rake()
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set up Gemini API
-<<<<<<< HEAD
 genai.configure(api_key='AIzaSyABvqN-8d3jpqlOeE1HzSK07LcW-R1B0Ss')
-=======
-genai.configure(api_key='API_KEY')
-# model = genai.GenerativeModel('gemini-pro')
->>>>>>> b15db421d4fbd94687574718c1a9757b8e08b2b4
 model = genai.GenerativeModel('gemini-1.5-pro')
 
 UPLOAD_FOLDER = 'uploads'
@@ -140,15 +136,16 @@ def chatbot():
         response = generate_response(prompt)
         response_latex_to_text = LatexNodes2Text().latex_to_text(response)
         # Escape special characters in the response
-        # response_escaped = html.escape(response_latex_to_text)        
+        # response_escaped = html.escape(response_latex_to_text)                
         # Convert Markdown to HTML
         response_html = markdown.markdown(response_latex_to_text)
 
         # Append chatbot response to the context
         user_context[user_id].append(f"Chatbot: {response_html}")
         # Log the conversation
-        print(f"User: {user_input}\n\nChatbot: {response_html}\n")
         log_conversation(user_id, user_input, response_html)
+        print("user", user_input)
+        print("response", response_html)
         return jsonify({'response': response_html})
     except Exception as e:
         error_message = "An error occurred while processing your request. Please try again."
