@@ -58,6 +58,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    userInput.addEventListener('paste', async (e) => {
+        e.preventDefault();
+        const items = e.clipboardData.items;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                const blob = items[i].getAsFile();
+                const imageUrl = URL.createObjectURL(blob);
+
+                // Display the pasted image
+                const imgElement = document.createElement('img');
+                imgElement.src = imageUrl;
+                imgElement.style.maxWidth = '100%';
+                chatMessages.appendChild(imgElement);
+
+                // Perform OCR on the image
+                Tesseract.recognize(imageUrl)
+                    .then(({ data: { text } }) => {
+                        userInput.value = text;
+                        sendBtn.click(); // Automatically send the OCR result
+                    })
+                    .catch(error => {
+                        console.error('OCR Error:', error);
+                        userInput.value = 'Error reading image. Please try again.';
+                    });
+
+                break;
+            }
+        }
+    });
+
     sendBtn.addEventListener('click', sendMessage);
     userInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {

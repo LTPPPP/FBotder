@@ -1,3 +1,4 @@
+# python/geminiBot.py
 from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
 import google.generativeai as genai
@@ -7,9 +8,15 @@ import base64
 from pylatexenc.latex2text import LatexNodes2Text
 import json
 import os
+import numpy as np
 from datetime import datetime
 import html  # Import html module for escaping
 import markdown  # Import markdown module for converting Markdown to HTML
+import pytesseract
+from PIL import Image
+import io
+import cv2
+from werkzeug.utils import secure_filename
 
 # Download necessary NLTK data
 nltk.download('punkt')
@@ -22,9 +29,16 @@ r = Rake()
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set up Gemini API
-genai.configure(api_key='API_KEY')
-model = genai.GenerativeModel('gemini-pro')
+genai.configure(api_key='AIzaSyABvqN-8d3jpqlOeE1HzSK07LcW-R1B0Ss')
+# model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-1.5-pro')
 
+
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Ensure the upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Initialize the main template
 MAIN_TEMPLATE = """
 Bạn là trợ lý giáo dục chuyên về toán học, lập trình và công thức. Hãy:
@@ -118,21 +132,54 @@ def chatbot():
     context = "\n".join(user_context[user_id])
     prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"
     
-    # Generate response from the model
-    response = generate_response(prompt)
-    response_latex_to_text = LatexNodes2Text().latex_to_text(response)
-    
-    # Escape special characters in the response
-    response_escaped = html.escape(response_latex_to_text)
-    # Convert Markdown to HTML
-    response_html = markdown.markdown(response_escaped)
+    try:
+        # Generate response from the model
+        response = generate_response(prompt)
+        response_latex_to_text = LatexNodes2Text().latex_to_text(response)
+        
+        # Escape special characters in the response
+        # response_escaped = html.escape(response_latex_to_text)
+        # Convert Markdown to HTML
+        response_html = markdown.markdown(response_latex_to_text)
 
-    # Append chatbot response to the context
-    user_context[user_id].append(f"Chatbot: {response_html}")
-    # Log the conversation
-    log_conversation(user_id, user_input, response_html)
-    print(f"User: {user_input}\n\nChatbot: {response_html}\n")
-    return jsonify({'response': response_html})
+        # Append chatbot response to the context
+        user_context[user_id].append(f"Chatbot: {response_html}")
+        # Log the conversation
+        log_conversation(user_id, user_input, response_html)
+        print(f"User: {user_input}\n\nChatbot: {response_html}\n")
+        return jsonify({'response': response_html})
+    except Exception as e:
+        error_message = "An error occurred while processing your request. Please try again."
+        log_conversation(user_id, user_input, error_message)
+        return jsonify({'response': error_message})
+    
+@app.route('/process_image', methods=['POST'])
+def process_image():
+    if 'file' not in request.files:
+        return jsonify({'response': 'No file part in the request'}), 400
+    
+    file = request.files['file']
+    
+    if file.filename == '':
+        return jsonify({'response': 'No file selected for uploading'}), 400
+    
+    if file:
+        # Read the image file
+        image_stream = io.BytesIO(file.read())
+        image = Image.open(image_stream)
+        
+        # Convert the image to OpenCV format
+        cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+        
+        # Perform OCR
+        text = pytesseract.image_to_string(cv_image)
+        
+        # Generate a response using the OCR text
+        prompt = f"{MAIN_TEMPLATE}\n\nThe following text was extracted from an image:\n{text}\n\nPlease analyze this text and provide insights or answer any questions it might contain."
+        response = generate_response(prompt)
+        
+        return jsonify({'response': response})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
