@@ -19,7 +19,7 @@ A basic AI chatbot for beginners and answers basic information from users includ
 
 2. Install library for python
    ```sh
-   pip install requests Flask beautifulsoup4 lxml google-generativeai nltk rake-nltk sympy matplotlib
+   pip install -r requirment.txt
 3. Change directory
    ```sh
    cd python
