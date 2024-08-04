@@ -10,7 +10,6 @@ import json
 import os
 import numpy as np
 from datetime import datetime
-import html  # Import html module for escaping
 import markdown  # Import markdown module for converting Markdown to HTML
 import pytesseract
 from PIL import Image
@@ -30,15 +29,14 @@ app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set up Gemini API
 genai.configure(api_key='AIzaSyABvqN-8d3jpqlOeE1HzSK07LcW-R1B0Ss')
-# model = genai.GenerativeModel('gemini-pro')
 model = genai.GenerativeModel('gemini-1.5-pro')
-
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Ensure the upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 # Initialize the main template
 MAIN_TEMPLATE = """
 Bạn là trợ lý giáo dục chuyên về toán học, lập trình và công thức. Hãy:
@@ -136,17 +134,16 @@ def chatbot():
         # Generate response from the model
         response = generate_response(prompt)
         response_latex_to_text = LatexNodes2Text().latex_to_text(response)
-        
         # Escape special characters in the response
-        # response_escaped = html.escape(response_latex_to_text)
+        # response_escaped = html.escape(response_latex_to_text)        
         # Convert Markdown to HTML
         response_html = markdown.markdown(response_latex_to_text)
 
         # Append chatbot response to the context
         user_context[user_id].append(f"Chatbot: {response_html}")
         # Log the conversation
-        log_conversation(user_id, user_input, response_html)
         print(f"User: {user_input}\n\nChatbot: {response_html}\n")
+        log_conversation(user_id, user_input, response_html)
         return jsonify({'response': response_html})
     except Exception as e:
         error_message = "An error occurred while processing your request. Please try again."
