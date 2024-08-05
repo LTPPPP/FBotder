@@ -1,4 +1,4 @@
-# python/geminiBot.py
+# app.py
 
 from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
@@ -11,12 +11,19 @@ import json
 import os
 import numpy as np
 from datetime import datetime
-import markdown  # Import markdown module for converting Markdown to HTML
+import markdown
 import pytesseract
 from PIL import Image
 import io
 import cv2
 from werkzeug.utils import secure_filename
+from waitress import serve
+import requests
+
+# Google Sheets API libraries
+import google.auth
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
 # Download necessary NLTK data
 nltk.download('punkt')
@@ -63,6 +70,31 @@ def ensure_directory_exists(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
+def log_conversation_to_google_sheets(timestamp, user_id, user_input, response):
+    SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+    SERVICE_ACCOUNT_FILE = 'credentials.json'  # Update with the path to your service account file
+
+    try:
+        credentials = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+        service = build('sheets', 'v4', credentials=credentials)
+
+        SPREADSHEET_ID = 'SHEET_ID'
+        RANGE_NAME = 'Sheet1!A:D'
+
+        values = [[timestamp, user_id, user_input, response]]
+        body = {'values': values}
+
+        result = service.spreadsheets().values().append(
+            spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME,
+            valueInputOption='RAW', body=body).execute()
+
+    except google.auth.exceptions.MalformedError as e:
+        print(f"Error with service account file: {e}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 def log_conversation(user_id, user_input, response):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = {
@@ -72,14 +104,12 @@ def log_conversation(user_id, user_input, response):
         "response": response
     }
 
-    # Ensure the directory exists
     log_directory = "../documents/response"
     ensure_directory_exists(log_directory)
 
-    # Log to JSON file
     json_log_path = os.path.join(log_directory, "log.json")
     try:
-        with open(json_log_path, "r+" ,encoding="utf-8") as json_file:
+        with open(json_log_path, "r+", encoding="utf-8") as json_file:
             try:
                 logs = json.load(json_file)
             except json.JSONDecodeError:
@@ -91,12 +121,13 @@ def log_conversation(user_id, user_input, response):
         with open(json_log_path, "w", encoding="utf-8") as json_file:
             json.dump([log_entry], json_file, indent=2)
 
-    # Log to text file
     txt_log_path = os.path.join(log_directory, "log.txt")
     with open(txt_log_path, "a", encoding="utf-8") as txt_file:
         txt_file.write(f"[{timestamp}] User {user_id}:\n")
         txt_file.write(f"Input: {user_input}\n")
         txt_file.write(f"Response: {response}\n\n")
+
+    log_conversation_to_google_sheets(timestamp, user_id, user_input, response)
 
 @app.route('/')
 def home():
@@ -105,10 +136,10 @@ def home():
 @app.route('/chat', methods=['POST'])
 def chatbot():
     user_input = request.json.get('message')
-    user_id = request.remote_addr  # Use user's IP address as a unique identifier
+    user_id = request.remote_addr
 
     if user_input.lower() in ['exit', 'quit', 'bye']:
-        user_context.pop(user_id, None)  # Clear context for the user
+        user_context.pop(user_id, None)
         response = "Bái bai! Hẹn gặp lại bạn sau nhé! moah moah <3"
         log_conversation(user_id, user_input, response)
         return jsonify({'response': response})
@@ -120,32 +151,21 @@ def chatbot():
         log_conversation(user_id, user_input, response)
         return jsonify({'response': response})
 
-    # Initialize context for the user if not already present
     if user_id not in user_context:
         user_context[user_id] = []
 
-    # Append user input to the context
     user_context[user_id].append(f"User: {user_input}")
 
-    # Create the prompt with context
     context = "\n".join(user_context[user_id])
     prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"
     
     try:
-        # Generate response from the model
         response = generate_response(prompt)
         response_latex_to_text = LatexNodes2Text().latex_to_text(response)
-        # Escape special characters in the response
-        # response_escaped = html.escape(response_latex_to_text)                
-        # Convert Markdown to HTML
         response_html = markdown.markdown(response_latex_to_text)
 
-        # Append chatbot response to the context
         user_context[user_id].append(f"Chatbot: {response_html}")
-        # Log the conversation
         log_conversation(user_id, user_input, response_html)
-        print("user", user_input)
-        print("response", response_html)
         return jsonify({'response': response_html})
     except Exception as e:
         error_message = "An error occurred while processing your request. Please try again."
@@ -163,22 +183,14 @@ def process_image():
         return jsonify({'response': 'No file selected for uploading'}), 400
     
     if file:
-        # Read the image file
         image_stream = io.BytesIO(file.read())
         image = Image.open(image_stream)
-        
-        # Convert the image to OpenCV format
         cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-        
-        # Perform OCR
         text = pytesseract.image_to_string(cv_image)
-        
-        # Generate a response using the OCR text
         prompt = f"{MAIN_TEMPLATE}\n\nThe following text was extracted from an image:\n{text}\n\nPlease analyze this text and provide insights or answer any questions it might contain."
         response = generate_response(prompt)
         
         return jsonify({'response': response})
 
-
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    serve(app, host='0.0.0.0', port=5000)
