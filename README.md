@@ -19,7 +19,7 @@ A basic AI chatbot for beginners and answers basic information from users includ
 
 2. Install library for python
    ```sh
-   pip install -r requirment.txt
+   pip install -r requirements.txt
 3. Change directory
    ```sh
    cd python
