@@ -122,3 +122,23 @@ body {
     padding: 2px 4px;
     border-radius: 3px;
 }
+
+
+/* respon */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .input-container {
+        flex-direction: column;
+    }
+
+    #user-input,
+    #send-btn,
+    #upload-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

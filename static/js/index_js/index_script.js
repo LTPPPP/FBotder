@@ -61,8 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
     userInput.addEventListener('paste', async (e) => {
         e.preventDefault();
         const items = e.clipboardData.items;
+        let pastedText = '';
+        let hasImage = false;
+
         for (let i = 0; i < items.length; i++) {
             if (items[i].type.indexOf('image') !== -1) {
+                hasImage = true;
                 const blob = items[i].getAsFile();
                 const imageUrl = URL.createObjectURL(blob);
 
@@ -84,7 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                 break;
+            } else if (items[i].type === 'text/plain') {
+                pastedText = await new Promise(resolve => items[i].getAsString(resolve));
             }
+        }
+
+        if (!hasImage && pastedText) {
+            userInput.value = pastedText;
         }
     });
 
