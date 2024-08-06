@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
-
     newChatBtn.addEventListener('click', function () {
         // Clear the chat messages
         chatMessages.innerHTML = '';
@@ -127,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 chatMessages.appendChild(botMessage);
             });
     });
-
     const uploadBtn = document.getElementById('upload-btn');
     const fileUpload = document.getElementById('file-upload');
 

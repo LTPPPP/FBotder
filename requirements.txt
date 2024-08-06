@@ -209,3 +209,14 @@ wsproto==1.2.0
 xxhash==3.4.1
 yarl==1.9.4
 zipp==3.19.2
+flask
+beautifulsoup4
+google-generative-ai
+nltk
+rake-nltk
+pylatexenc
+numpy
+markdown
+pytesseract
+pillow
+opencv-python

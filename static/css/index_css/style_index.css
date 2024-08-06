@@ -8,10 +8,13 @@ body {
 }
 
 /* Chat container styles */
+
+/* chat container */
 .chat-container {
     position: fixed;
     top: 0;
     right: 0;
+    /* width: 50%; */
     width: 100%;
     height: 100vh;
     border-left: 1px solid #ccc;
@@ -33,6 +36,7 @@ body {
     display: flex;
     padding: 10px 5px;
     padding-left: 0;
+    padding: 10px;
 }
 
 #user-input {
@@ -126,10 +130,29 @@ body {
     }
 }
 
-/* Math modify */
 .math-formula {
     font-family: 'Courier New', Courier, monospace;
     background-color: #f0f0f0;
     padding: 2px 4px;
     border-radius: 3px;
+}
+
+
+/* respon */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .input-container {
+        flex-direction: column;
+    }
+
+    #user-input,
+    #send-btn,
+    #upload-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
