@@ -26,6 +26,22 @@ A basic AI chatbot for beginners and answers basic information from users includ
 4. Start the project
    ```sh
    python geminiBot.py
+5. Run url for public
+   ```sh
+   ngrok http 5000
+
+YOUR TERMINAL WILL BE:
+
+Session Status                online                                                                                                  
+Account                       your email (Plan: Free)                                                                       
+Version                       3.14.0                                                                                                  
+Region                        region                                                                                      
+Latency                       XXms                                                                                                    
+Web Interface                 http://XXXX.XXX.XXXX                                                                                  
+Forwarding                    https://XXXX.ngrok-free.app -> http://localhost:5000       
+
+Click on Forwarding to use it on web
+
 
 ## Folder Structure
 - `templates`: HTML templates for the web application.
