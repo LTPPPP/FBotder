@@ -36,7 +36,6 @@ body {
     display: flex;
     padding: 10px 5px;
     padding-left: 0;
-    padding: 10px;
 }
 
 #user-input {
@@ -135,24 +134,4 @@ body {
     background-color: #f0f0f0;
     padding: 2px 4px;
     border-radius: 3px;
-}
-
-
-/* respon */
-@media (max-width: 768px) {
-    .container {
-        width: 100%;
-        padding: 10px;
-    }
-
-    .input-container {
-        flex-direction: column;
-    }
-
-    #user-input,
-    #send-btn,
-    #upload-btn {
-        width: 100%;
-        margin-bottom: 10px;
-    }
 }

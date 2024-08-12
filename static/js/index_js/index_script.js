@@ -6,14 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addMessage(message, isUser) {
         const messageElement = document.createElement('div');
-        messageElement.classList.add('message');
-        messageElement.classList.add(isUser ? 'user-message' : 'bot-message');
-        if (isUser) {
-            messageElement.textContent = message;
-        } else {
-            messageElement.innerHTML = message; // Use innerHTML for bot messages
-        }
-
+        messageElement.classList.add('message', isUser ? 'user-message' : 'bot-message');
+        messageElement.innerHTML = message;
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -31,6 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.removeChild(indicator);
     }
 
+
+    async function processImage() {
+        const file = document.getElementById('user-input').files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch('/process_image', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        addMessage(data.response, false);
+    }
+
     function sendMessage() {
         const message = userInput.value.trim();
         if (message) {
@@ -41,9 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             fetch('/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: message }),
             })
                 .then(response => response.json())
@@ -71,24 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const blob = items[i].getAsFile();
                 const imageUrl = URL.createObjectURL(blob);
 
-                // Display the pasted image
                 const imgElement = document.createElement('img');
                 imgElement.src = imageUrl;
                 imgElement.style.maxWidth = '100%';
                 chatMessages.appendChild(imgElement);
-
-                // Perform OCR on the image
-                Tesseract.recognize(imageUrl)
-                    .then(({ data: { text } }) => {
-                        userInput.value = text;
-                        sendBtn.click(); // Automatically send the OCR result
-                    })
-                    .catch(error => {
-                        console.error('OCR Error:', error);
-                        userInput.value = 'Error reading image. Please try again.';
-                    });
-
-                break;
+                chatMessages.scrollTop = chatMessages.scrollHeight
+                sendBtn.click();
+                userInput.value = "Processing image...";
             } else if (items[i].type === 'text/plain') {
                 pastedText = await new Promise(resolve => items[i].getAsString(resolve));
             }
@@ -105,50 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
-    newChatBtn.addEventListener('click', function () {
-        // Clear the chat messages
-        chatMessages.innerHTML = '';
 
-        // Clear the user context on the server
+    newChatBtn.addEventListener('click', function () {
+        chatMessages.innerHTML = '';
         fetch('/chat', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: 'exit' })
         })
             .then(response => response.json())
             .then(data => {
-                // Optionally, display a message indicating a new chat has started
-                const botMessage = document.createElement('div');
-                botMessage.classList.add('message', 'bot-message');
-                botMessage.innerHTML = 'New chat started. How can I assist you today?';
-                chatMessages.appendChild(botMessage);
+                addMessage('New chat started. How can I assist you today?', false);
             });
-    });
-    const uploadBtn = document.getElementById('upload-btn');
-    const fileUpload = document.getElementById('file-upload');
-
-    uploadBtn.addEventListener('click', () => {
-        fileUpload.click();
-    });
-
-    fileUpload.addEventListener('change', () => {
-        const file = fileUpload.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-
-            fetch('/upload', {
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(data => addMessage(data.response, false))
-                .catch(error => {
-                    console.error('Error:', error);
-                    addMessage('An error occurred during file upload. Please try again.', false);
-                });
-        }
     });
 });

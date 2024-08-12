@@ -18,13 +18,13 @@ import io
 import cv2
 from werkzeug.utils import secure_filename
 from waitress import serve
-import requests
+import PIL.Image 
 
 # Google Sheets API libraries
 import google.auth
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-
+from API import API_KEY_GEMINI, MODEL_NAME, VISION_MODEL, SPREADSHEET_ID, RANGE_NAME
 # Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -36,8 +36,9 @@ r = Rake()
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Set up Gemini API
-genai.configure(api_key='API_KEY')
-model = genai.GenerativeModel('gemini-1.5-pro')
+genai.configure(api_key=API_KEY_GEMINI)
+model = genai.GenerativeModel(MODEL_NAME)
+vision_model = genai.GenerativeModel(VISION_MODEL)
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -81,9 +82,6 @@ def log_conversation_to_google_sheets(timestamp, user_id, user_input, response):
         credentials = service_account.Credentials.from_service_account_file(
             SERVICE_ACCOUNT_FILE, scopes=SCOPES)
         service = build('sheets', 'v4', credentials=credentials)
-
-        SPREADSHEET_ID = 'ID'  # Update with your Google Sheets ID
-        RANGE_NAME = 'RANGE'  # Update with the range you want to write to
 
         values = [[timestamp, user_id, user_input, response]]
         body = {'values': values}
@@ -136,6 +134,12 @@ def log_conversation(user_id, user_input, response):
 def home():
     return render_template('index.html')
 
+def process_image(image_path, prompt):
+    img = PIL.Image.open(image_path)
+    response = vision_model.generate_content([prompt, img])
+    return response.text
+
+
 @app.route('/chat', methods=['POST'])
 def chatbot():
     user_input = request.json.get('message')
@@ -161,6 +165,13 @@ def chatbot():
 
     context = "\n".join(user_context[user_id])
     prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"
+
+    if user_input.lower().startswith("image:"):
+        image_path = user_input[6:].strip()
+        prompt = user_input.get('image_prompt')
+        response = process_image(image_path, prompt)
+        print(response)
+        return jsonify({'response': response})
     
     try:
         response = generate_response(prompt)
@@ -174,26 +185,8 @@ def chatbot():
         error_message = "An error occurred while processing your request. Please try again."
         log_conversation(user_id, user_input, error_message)
         return jsonify({'response': error_message})
-    
-@app.route('/process_image', methods=['POST'])
-def process_image():
-    if 'file' not in request.files:
-        return jsonify({'response': 'No file part in the request'}), 400
-    
-    file = request.files['file']
-    
-    if file.filename == '':
-        return jsonify({'response': 'No file selected for uploading'}), 400
-    
-    if file:
-        image_stream = io.BytesIO(file.read())
-        image = Image.open(image_stream)
-        cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
-        text = pytesseract.image_to_string(cv_image)
-        prompt = f"{MAIN_TEMPLATE}\n\nThe following text was extracted from an image:\n{text}\n\nPlease analyze this text and provide insights or answer any questions it might contain."
-        response = generate_response(prompt)
-        
-        return jsonify({'response': response})
+
 
 if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port=5000)
+    # serve(app, host='0.0.0.0', port=5000)
+     app.run(debug=True)
