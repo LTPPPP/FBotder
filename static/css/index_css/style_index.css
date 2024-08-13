@@ -135,3 +135,27 @@ body {
     padding: 2px 4px;
     border-radius: 3px;
 }
+
+
+/* code block */
+.code-table {
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.code-table td {
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+
+.copy-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.copy-btn:hover {
+    background-color: #45a049;
+}

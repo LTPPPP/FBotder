@@ -19,7 +19,7 @@ import cv2
 from werkzeug.utils import secure_filename
 from waitress import serve
 import PIL.Image 
-
+import html 
 # Google Sheets API libraries
 import google.auth
 from google.oauth2 import service_account
@@ -134,17 +134,33 @@ def log_conversation(user_id, user_input, response):
 def home():
     return render_template('index.html')
 
-def process_image(image_path, prompt):
-    img = PIL.Image.open(image_path)
-    response = vision_model.generate_content([prompt, img])
-    return response.text
-
+@app.route('/process_image', methods=['POST'])
+def process_image():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'})
+    
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'})
+    
+    if file:
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        
+        img = PIL.Image.open(filepath)
+        prompt = f"{MAIN_TEMPLATE}\nDescribe this image in detail"
+        response = vision_model.generate_content([prompt, img])
+        # Delete the file after processing
+        os.remove(filepath)
+        
+        return jsonify({'response': markdown.markdown(LatexNodes2Text().latex_to_text(response.text))})
 
 @app.route('/chat', methods=['POST'])
 def chatbot():
     user_input = request.json.get('message')
     user_id = request.remote_addr
-
+    
     if user_input.lower() in ['exit', 'quit', 'bye']:
         user_context.pop(user_id, None)
         response = "Bái bai! Hẹn gặp lại bạn sau nhé! moah moah <3"
@@ -164,23 +180,16 @@ def chatbot():
     user_context[user_id].append(f"User: {user_input}")
 
     context = "\n".join(user_context[user_id])
-    prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"
-
-    if user_input.lower().startswith("image:"):
-        image_path = user_input[6:].strip()
-        prompt = user_input.get('image_prompt')
-        response = process_image(image_path, prompt)
-        print(response)
-        return jsonify({'response': response})
-    
+    prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"    
     try:
         response = generate_response(prompt)
-        response_latex_to_text = LatexNodes2Text().latex_to_text(response)
-        response_html = markdown.markdown(response_latex_to_text)
-
-        user_context[user_id].append(f"Chatbot: {response_html}")
-        log_conversation(user_id, user_input, response_html)
-        return jsonify({'response': response_html})
+        response = html.escape(response)
+        # response = LatexNodes2Text().latex_to_text(response)
+        # response = markdown.markdown(response)
+        print("respone : "+response)
+        user_context[user_id].append(f"Chatbot: {response}")
+        log_conversation(user_id, user_input, response)
+        return jsonify({'response': response})
     except Exception as e:
         error_message = "An error occurred while processing your request. Please try again."
         log_conversation(user_id, user_input, error_message)
@@ -189,4 +198,4 @@ def chatbot():
 
 if __name__ == '__main__':
     # serve(app, host='0.0.0.0', port=5000)
-     app.run(debug=True)
+    app.run(debug=True)
