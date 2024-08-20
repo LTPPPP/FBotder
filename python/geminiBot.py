@@ -185,6 +185,10 @@ def chatbot():
         response = generate_response(prompt)
         response = html.escape(response)
         # response = LatexNodes2Text().latex_to_text(response)
+        if response.__contains__('```'):
+            return jsonify({'response': response})
+        else:
+            response = markdown.markdown(response)
         # response = markdown.markdown(response)
         print("respone : "+response)
         user_context[user_id].append(f"Chatbot: {response}")
