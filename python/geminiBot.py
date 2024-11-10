@@ -90,7 +90,7 @@ def log_conversation_to_google_sheets(timestamp, user_id, user_input, response):
             spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME,
             valueInputOption='RAW', body=body).execute()
 
-    except google.auth.exceptions.MalformedError as e:
+    except google.auth.exceptions.MalformedError as e: # type: ignore
         print(f"Error with service account file: {e}")
 
     except Exception as e:
@@ -134,7 +134,7 @@ def log_conversation(user_id, user_input, response):
 def home():
     return render_template('index.html')
 
-@app.route('/process_image', methods=['POST'])
+@app.route('/process_image', methods=['POST']) # type: ignore
 def process_image():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'})
@@ -144,7 +144,7 @@ def process_image():
         return jsonify({'error': 'No selected file'})
     
     if file:
-        filename = secure_filename(file.filename)
+        filename = secure_filename(file.filename) # type: ignore
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         
@@ -158,7 +158,7 @@ def process_image():
 
 @app.route('/chat', methods=['POST'])
 def chatbot():
-    user_input = request.json.get('message')
+    user_input = request.json.get('message') # type: ignore
     user_id = request.remote_addr
     
     if user_input.lower() in ['exit', 'quit', 'bye']:
@@ -188,12 +188,10 @@ def chatbot():
         if response.__contains__('```'):
             return jsonify({'response': response})
         else:
-            response = markdown.markdown(response)
-        # response = markdown.markdown(response)
-        print("respone : "+response)
-        user_context[user_id].append(f"Chatbot: {response}")
-        log_conversation(user_id, user_input, response)
-        return jsonify({'response': response})
+            print("respone : "+response)
+            user_context[user_id].append(f"Chatbot: {response}")
+            log_conversation(user_id, user_input, response)
+            return jsonify({'response': response})
     except Exception as e:
         error_message = "An error occurred while processing your request. Please try again."
         log_conversation(user_id, user_input, error_message)

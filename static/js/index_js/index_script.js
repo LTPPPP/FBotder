@@ -4,15 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn');
     const newChatBtn = document.getElementById('new-chat-btn');
 
+    // Initialize marked
+    marked.setOptions({
+        breaks: true,
+        gfm: true,
+    });
+
     function addMessage(message, isUser) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', isUser ? 'user-message' : 'bot-message');
 
         if (!isUser) {
-            // Format the message with copyable code blocks
-            message = formatMessageWithCopyableCode(message);
+            // Format the message with Markdown
+            message = formatMessageWithMarkdown(message);
 
-            // Convert LaTeX to text
+            // Convert LaTeX to text for better display
             message = latexToText(message);
         }
 
@@ -20,92 +26,47 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
-        const copyButtons = messageElement.querySelectorAll('.copy-btn');
-        copyButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const codeBlock = this.closest('tr').querySelector('pre');
-                const codeText = codeBlock.textContent.split('\n').slice(1).join('\n'); // Exclude the first line
-                navigator.clipboard.writeText(codeText).then(() => {
-                    // Change button text temporarily to indicate success
-                    const originalText = this.textContent;
-                    this.textContent = 'Copied!';
+        // Add copy functionality for code blocks
+        const codeBlocks = messageElement.querySelectorAll('pre code');
+        codeBlocks.forEach(block => {
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Copy';
+            copyButton.classList.add('copy-btn');
+            copyButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(block.textContent).then(() => {
+                    const originalText = copyButton.textContent;
+                    copyButton.textContent = 'Copied!';
                     setTimeout(() => {
-                        this.textContent = originalText;
+                        copyButton.textContent = originalText;
                     }, 2000);
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
                 });
             });
+            block.parentNode.insertBefore(copyButton, block);
         });
     }
 
+    // Function to format the message with Markdown
+    function formatMessageWithMarkdown(message) {
+        return marked.parse(message);
+    }
+
+    // Function to convert LaTeX to plain text
     function latexToText(text) {
-        // Replace display math mode
-        text = text.replace(/\$\$(.*?)\$\$/g, '$1');
-
-        // Replace inline math mode
-        text = text.replace(/\$(.*?)\$/g, '$1');
-
-        // Replace \frac{numerator}{denominator}
-        text = text.replace(/\\frac\{([^}]*)\}\{([^}]*)\}/g, '($1)/($2)');
-
-        // Replace superscripts
-        text = text.replace(/\^(\{[^}]*\}|\S)/g, '^($1)');
-
-        // Replace subscripts
-        text = text.replace(/_(\{[^}]*\}|\S)/g, '_($1)');
-
-        // Replace \sqrt{x}
-        text = text.replace(/\\sqrt\{([^}]*)\}/g, 'sqrt($1)');
-
-        // Replace \left and \right
-        text = text.replace(/\\left|\\\right/g, '');
-
-        // Replace Greek letters
-        const greekLetters = {
-            'alpha': 'α', 'beta': 'β', 'gamma': 'γ', 'delta': 'δ', 'epsilon': 'ε',
-            'zeta': 'ζ', 'eta': 'η', 'theta': 'θ', 'iota': 'ι', 'kappa': 'κ',
-            'lambda': 'λ', 'mu': 'μ', 'nu': 'ν', 'xi': 'ξ', 'omicron': 'ο',
-            'pi': 'π', 'rho': 'ρ', 'sigma': 'σ', 'tau': 'τ', 'upsilon': 'υ',
-            'phi': 'φ', 'chi': 'χ', 'psi': 'ψ', 'omega': 'ω'
-        };
-        for (let [name, symbol] of Object.entries(greekLetters)) {
-            text = text.replace(new RegExp('\\\\' + name, 'g'), symbol);
-        }
-
-        // Replace common LaTeX commands
-        const latexCommands = {
-            'sum': '∑', 'prod': '∏', 'int': '∫', 'infty': '∞',
-            'times': '×', 'div': '÷', 'cdot': '·', 'approx': '≈',
-            'neq': '≠', 'geq': '≥', 'leq': '≤', 'pm': '±',
-            'in': '∈', 'notin': '∉', 'subset': '⊂', 'supset': '⊃',
-            'cup': '∪', 'cap': '∩', 'emptyset': '∅'
-        };
-        for (let [command, symbol] of Object.entries(latexCommands)) {
-            text = text.replace(new RegExp('\\\\' + command, 'g'), symbol);
-        }
-
-        // Remove remaining LaTeX commands
-        text = text.replace(/\\[a-zA-Z]+/g, '');
-
+        // Replace LaTeX expressions with plain text equivalents
+        text = text.replace(/\$\$(.*?)\$\$/g, '$1');  // display math mode
+        text = text.replace(/\$(.*?)\$/g, '$1');       // inline math mode
+        text = text.replace(/\\frac\{([^}]*)\}\{([^}]*)\}/g, '($1)/($2)');  // fractions
+        text = text.replace(/\^(\{[^}]*\}|\S)/g, '^($1)');  // superscripts
+        text = text.replace(/_(\{[^}]*\}|\S)/g, '_($1)');  // subscripts
+        text = text.replace(/\\sqrt\{([^}]*)\}/g, 'sqrt($1)');  // square roots
+        text = text.replace(/\\left|\\right/g, '');  // remove \left and \right
+        text = text.replace(/\\[a-zA-Z]+/g, '');  // remove remaining LaTeX commands
         return text;
     }
 
-    function formatMessageWithCopyableCode(message) {
-        const codeRegex = /```([^`]*)```/g;
-        let formattedMessage = message.replace(codeRegex, (_, codeContent) => {
-            return `
-                <table class="code-table">
-                    <tr>
-                        <td><pre>${codeContent}</pre></td>
-                        <td><button class="copy-btn">Copy</button></td>
-                    </tr>
-                </table>
-            `;
-        });
-        return formattedMessage;
-    }
-
+    // Add a typing indicator when the bot is processing the user's message
     function addTypingIndicator() {
         const indicatorElement = document.createElement('div');
         indicatorElement.classList.add('message', 'bot-message');
@@ -115,40 +76,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return indicatorElement;
     }
 
+    // Remove the typing indicator once the bot's response is ready
     function removeTypingIndicator(indicator) {
         chatMessages.removeChild(indicator);
     }
 
-    async function processImage(file) {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-            const response = await fetch('/process_image', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            addMessage(data.response, false);
-        } catch (error) {
-            console.error('Error:', error);
-            addMessage('An error occurred while processing the image. Please try again.', false);
-        }
-    }
-
+    // Function to send the user's message to the server and receive a bot response
     function sendMessage() {
         const message = userInput.value.trim();
         if (message) {
-            addMessage(message, true);
-            userInput.value = '';
+            addMessage(message, true);  // Add the user's message to the chat
+            userInput.value = '';  // Clear the input field
 
-            const typingIndicator = addTypingIndicator();
+            const typingIndicator = addTypingIndicator();  // Show typing indicator
 
+            // Send the message to the server for processing
             fetch('/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -156,8 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    removeTypingIndicator(typingIndicator);
-                    addMessage(data.response, false);
+                    removeTypingIndicator(typingIndicator);  // Remove typing indicator
+                    addMessage(data.response, false);  // Add the bot's response to the chat
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -167,37 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    userInput.addEventListener('paste', async (e) => {
-        e.preventDefault();
-        const items = e.clipboardData.items;
-        let pastedText = '';
-        let hasImage = false;
-
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].type.indexOf('image') !== -1) {
-                hasImage = true;
-                const blob = items[i].getAsFile();
-                const file = new File([blob], "pasted_image.png", { type: blob.type });
-
-                const imgElement = document.createElement('img');
-                imgElement.src = URL.createObjectURL(blob);
-                imgElement.style.maxWidth = '100%';
-                chatMessages.appendChild(imgElement);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                addMessage('Processing image...', false);
-                await processImage(file);
-                return;  // Stop processing if image is found
-            } else if (items[i].type === 'text/plain') {
-                pastedText = await new Promise(resolve => items[i].getAsString(resolve));
-            }
-        }
-
-        if (!hasImage && pastedText) {
-            userInput.value = pastedText;
-        }
-    });
-
+    // Handle user input events (sending message on Enter key or click of the send button)
     sendBtn.addEventListener('click', sendMessage);
     userInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -205,8 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Start a new chat when the "New Chat" button is clicked
     newChatBtn.addEventListener('click', function () {
-        chatMessages.innerHTML = '';
+        chatMessages.innerHTML = '';  // Clear chat messages
         fetch('/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -215,6 +128,46 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 addMessage('New chat started. How can I assist you today?', false);
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
     });
+
+    // Image upload functionality
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+
+    userInput.addEventListener('paste', (e) => {
+        const items = e.clipboardData.items;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf('image') !== -1) {
+                const blob = items[i].getAsFile();
+                uploadImage(blob);
+                e.preventDefault();
+                break;
+            }
+        }
+    });
+
+    function uploadImage(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/process_image', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                addMessage(data.response, false);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('An error occurred while processing the image. Please try again.', false);
+            });
+    }
 });
