@@ -1,5 +1,3 @@
-# python/geminiBot.py
-
 from flask import Flask, render_template, request, jsonify
 from bs4 import BeautifulSoup
 import google.generativeai as genai
@@ -20,11 +18,8 @@ from werkzeug.utils import secure_filename
 from waitress import serve
 import PIL.Image 
 import html 
-# Google Sheets API libraries
-import google.auth
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-from API import API_KEY_GEMINI, MODEL_NAME, VISION_MODEL, SPREADSHEET_ID, RANGE_NAME
+from API import API_KEY_GEMINI, MODEL_NAME, VISION_MODEL
+
 # Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -60,6 +55,7 @@ Bạn là trợ lý giáo dục chuyên về toán học, lập trình, công th
 8. Tóm tắt câu hỏi và câu trả lời, không in ra "tóm tắt câu hỏi" và "tóm tắt câu trả lời".
 9. Có thể phân tích hình ảnh và trả lời câu hỏi từ hình ảnh.
 10. Nhận diện vật thể từ hình ảnh và cung cấp thông tin chi tiết.
+11. Luôn trả lời lịch sự, đáng yêu và luôn kèm theo icon (づ｡◕‿‿◕｡)づ
 Hãy trả lời ngắn gọn nhưng đầy đủ. Nếu cần thêm thông tin, hãy hỏi người dùng.
 """
 
@@ -73,28 +69,6 @@ def generate_response(prompt):
 def ensure_directory_exists(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
-
-def log_conversation_to_google_sheets(timestamp, user_id, user_input, response):
-    SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-    SERVICE_ACCOUNT_FILE = 'credentials.json'  # Update with the path to your service account file
-
-    try:
-        credentials = service_account.Credentials.from_service_account_file(
-            SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-        service = build('sheets', 'v4', credentials=credentials)
-
-        values = [[timestamp, user_id, user_input, response]]
-        body = {'values': values}
-
-        result = service.spreadsheets().values().append(
-            spreadsheetId=SPREADSHEET_ID, range=RANGE_NAME,
-            valueInputOption='RAW', body=body).execute()
-
-    except google.auth.exceptions.MalformedError as e: # type: ignore
-        print(f"Error with service account file: {e}")
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
 
 def log_conversation(user_id, user_input, response):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -128,13 +102,11 @@ def log_conversation(user_id, user_input, response):
         txt_file.write(f"Input: {user_input}\n")
         txt_file.write(f"Response: {response}\n\n")
 
-    log_conversation_to_google_sheets(timestamp, user_id, user_input, response)
-
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/process_image', methods=['POST']) # type: ignore
+@app.route('/process_image', methods=['POST'])
 def process_image():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'})
@@ -144,21 +116,20 @@ def process_image():
         return jsonify({'error': 'No selected file'})
     
     if file:
-        filename = secure_filename(file.filename) # type: ignore
+        filename = secure_filename(file.filename)
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         
         img = PIL.Image.open(filepath)
         prompt = f"{MAIN_TEMPLATE}\nDescribe this image in detail"
         response = vision_model.generate_content([prompt, img])
-        # Delete the file after processing
-        os.remove(filepath)
+        os.remove(filepath)  # Delete the file after processing
         
         return jsonify({'response': markdown.markdown(LatexNodes2Text().latex_to_text(response.text))})
 
 @app.route('/chat', methods=['POST'])
 def chatbot():
-    user_input = request.json.get('message') # type: ignore
+    user_input = request.json.get('message')
     user_id = request.remote_addr
     
     if user_input.lower() in ['exit', 'quit', 'bye']:
@@ -178,26 +149,19 @@ def chatbot():
         user_context[user_id] = []
 
     user_context[user_id].append(f"User: {user_input}")
-
     context = "\n".join(user_context[user_id])
     prompt = f"{MAIN_TEMPLATE}\n\n{context}\n\nChatbot:"    
+
     try:
         response = generate_response(prompt)
         response = html.escape(response)
-        # response = LatexNodes2Text().latex_to_text(response)
-        if response.__contains__('```'):
-            return jsonify({'response': response})
-        else:
-            print("respone : "+response)
-            user_context[user_id].append(f"Chatbot: {response}")
-            log_conversation(user_id, user_input, response)
-            return jsonify({'response': response})
+        user_context[user_id].append(f"Chatbot: {response}")
+        log_conversation(user_id, user_input, response)
+        return jsonify({'response': response})
     except Exception as e:
         error_message = "An error occurred while processing your request. Please try again."
         log_conversation(user_id, user_input, error_message)
         return jsonify({'response': error_message})
 
-
 if __name__ == '__main__':
-    # serve(app, host='0.0.0.0', port=5000)
     app.run(debug=True)

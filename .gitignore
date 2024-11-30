@@ -1,3 +1,13 @@
-"fbotder-560800036456.json" 
-"python/credentials.json" 
-"client_secret_462857051196-rnjnkh9cn8l981ue25l2rjjm9l8817m1.apps.googleusercontent.com.json" 
+fbotder-560800036456.json 
+python/credentials.json
+client_secret_462857051196-rnjnkh9cn8l981ue25l2rjjm9l8817m1.apps.googleusercontent.com.json
+
+python/credentials.json
+python/node_modules
+python/package-lock.json
+python/yarn.lock
+python/.env
+python/.env.local
+python/myenv    
+documents/
+python/API.py
